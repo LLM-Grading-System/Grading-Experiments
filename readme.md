@@ -22,11 +22,12 @@ uv run python -m experiments.exp1.run
 uv run pytest experiments/exp1/test_solution.py -sv
 ```
 
-### Эксперимент 2: оценка кода на метауровне
+### Эксперимент 2: мета-оценка кода
 
 
 **Запуск оценивания:**
 ```bash
 uv run python -m experiments.exp2.run 
 ```
+
 

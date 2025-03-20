@@ -18,9 +18,11 @@ class CriteriaNote(BaseModel):
 
 
 class CriteriaFeedback(BaseModel):
+    task: str = Field(description="Describe students task")
+    files: list[str] = Field(description="Which files you use for grading")
     criteria: list[CriteriaNote] = Field(default=[])
     general_feedback: str = Field(description="General feedback about the code according to the criteria for student")
-    general_score: int = Field(description="General score of student code, from 0 to 5")
+    general_grade: str = Field(description="General grade of student code: excellent, good, ok, bad")
 
 
 with open("experiments/exp2/system.md", encoding="utf-8") as f:
@@ -55,7 +57,9 @@ chain = criteria_code_prompt | model_with_structured_output
 
 result: CriteriaFeedback = chain.invoke(right_solution)
 print("Feedback: ", result.general_feedback)
-print("Score: ", result.general_score)
+print("Grade: ", result.general_grade)
+print("Files: ", result.files)
+print("Task: ", result.task)
 score = sum(item.is_met for item in result.criteria) / len(result.criteria)
 print("Criteria based score:", round(score, 2))
 
